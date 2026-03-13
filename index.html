@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickFix Services - Fast & Reliable Local Services</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: #dbeafe;
+            transform: translateY(-2px);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .search-container {
+            background: white;
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .search-input {
+            border: none;
+            outline: none;
+            font-size: 1.1rem;
+            width: 70%;
+            padding: 0.5rem;
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background: #f8fafc;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #1e293b;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            font-size: 3.5rem;
+            color: #3b82f6;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+
+        .service-card p {
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        /* Booking Form */
+        .booking {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.95);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4);
+        }
+
+        .error {
+            border-color: #ef4444 !important;
+            background: #fef2f2 !important;
+        }
+
+        /* About & Contact */
+        .about, .contact {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .about-content, .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h2, .contact-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #1e293b;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1e293b;
+            color: white;
+            text-align: center;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: #1e3a8a;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .hero {
+                padding: 100px 0 60px;
+            }
+
+            .about-content, .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+        }
+
+        /* Page specific styles */
+        .page-content {
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">QuickFix</a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link" data-page="home">Home</a></li>
+                <li><a href="#services" class="nav-link" data-page="services">Services</a></li>
+                <li><a href="#booking" class="nav-link" data-page="booking">Book Now</a></li>
+                <li><a href="#about" class="nav-link" data-page="about">About</a></li>
+                <li><a href="#contact" class="nav-link" data-page="contact">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <section id="home" class="page-content">
+        <div class="hero">
+            <div class="hero-container">
+                <h1>Fast & Reliable Local Services</h1>
+                <p>Get your home services fixed within hours. Professional technicians at your doorstep.</p>
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Enter your service (plumber, electrician, etc.)" id="searchInput">
+                    <button class="search-btn" onclick="searchServices()">
+                        <i class="fas fa-search"></i> Find Services
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <section id="services" class="services">
+            <div class="container">
+                <h2 class="section-title">Our Services</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Plumbing</h3>
+                        <p>Leaks, clogs, installations and repairs. 24/7 emergency service available.</p>
+                        <button onclick="location.href='#booking'" 
+style="margin-top:15px;padding:10px 20px;border:none;background:#3b82f6;color:white;border-radius:8px;cursor:pointer;">
+Book Now
+</button>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>Electrician</h3>
+                        <p>Wiring, repairs, installations and safety inspections. Licensed professionals.</p>
+                        <button onclick="location.href='#booking'" 
+style="margin-top:15px;padding:10px 20px;border:none;background:#3b82f6;color:white;border-radius:8px;cursor:pointer;">
+Book Now
+</button>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-hammer"></i>
+                        </div>
+                        <h3>Carpentry</h3>
+                        <p>Furniture assembly, repairs, custom woodwork and installations.</p>
+                        <button onclick="location.href='#booking'" 
+style="margin-top:15px;padding:10px 20px;border:none;background:#3b82f6;color:white;border-radius:8px;cursor:pointer;">
+Book Now
+</button>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-fan"></i>
+                        </div>
+                        <h3>AC Repair</h3>
+                        <p>Installation, maintenance and repair of all AC systems. Fast cooling solutions.</p>
+                        <button onclick="location.href='#booking'" 
+style="margin-top:15px;padding:10px 20px;border:none;background:#3b82f6;color:white;border-radius:8px;cursor:pointer;">
+Book Now
+</button>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-broom"></i>
+                        </div>
+                        <h3>Cleaning</h3>
+                        <p>Deep cleaning, regular maintenance and specialized cleaning services.</p><button onclick="location.href='#booking'" 
+style="margin-top:15px;padding:10px 20px;border:none;background:#3b82f6;color:white;border-radius:8px;cursor:pointer;">
+Book Now
+</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- Booking Page -->
+    <section id="booking" class="booking">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Book Your Service</h2>
+            <form class="form-container" id="bookingForm">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="name" required>
+                    <span class="error-message" id="nameError"></span>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="phone" required>
+                    <span class="error-message" id="phoneError"></span>
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <textarea rows="3" id="address" required></textarea>
+                    <span class="error-message" id="addressError"></span>
+                </div>
+                <div class="form-group">
+                    <label>Service</label>
+                    <select id="service" required>
+                        <option value="">Select a service</option>
+                        <option value="plumbing">Plumbing</option>
+                        <option value="electrician">Electrician</option>
+                        <option value="carpentry">Carpentry</option>
+                        <option value="ac-repair">AC Repair</option>
+                        <option value="cleaning">Cleaning</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Preferred Date</label>
+                    <input type="date" id="date" required>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-calendar-check"></i> Book Now
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- About Page -->
+    <section id="about" class="about page-content">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About QuickFix</h2>
+                    <p>QuickFix Services is your trusted partner for all home maintenance needs. With over 10 years of experience, we connect you with verified, licensed professionals who deliver quality service fast.</p>
+                    <p>Our mission is simple: make home repairs hassle-free. From emergency plumbing to routine cleaning, we’ve got you covered 24/7.</p>
+                    <div style="margin-top: 2rem;">
+                        <h3>Why Choose Us?</h3>
+                        <ul style="color: #64748b; margin-top: 1rem;">
+                            <li>✓ Verified Professionals</li>
+                            <li>✓ 24/7 Availability</li>
+                            <li>✓ Satisfaction Guarantee</li>
+                            <li>✓ Affordable Rates</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <i class="fas fa-users" style="font-size: 8rem; color: #3b82f6; opacity: 0.8;"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Page -->
+    <section id="contact" class="contact page-content">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-text">
+                    <h2>Get In Touch</h2>
+                    <p>Ready to get started? Contact us today for fast, reliable service.</p>
+                    <div style="margin-top: 2rem;">
+                        <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                        <p><i class="fas fa-envelope"></i> hello@quickfixservices.com</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Serving all major cities</p>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <i class="fas fa-headset" style="font-size: 8rem; color: #10b981; opacity: 0.8;"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#home" class="footer-link">Home</a>
+                <a href="#services" class="footer-link">Services</a>
+               <section id="booking">
+  <h2>Book a Service</h2>
+
+  <form id="bookingForm">
+  <input type="text" id="name" placeholder="Your Name" required><br><br>
+
+  <input type="tel" id="phone" placeholder="Phone Number" required><br><br>
+
+    <input type="text" placeholder="Your Address" required><br><br>
+
+  <select id="service">
+<option>Select Service</option>
+<option>Plumber</option>
+<option>Electrician</option>
+<option>AC Repair</option>
+</select><br><br>
+      <option>Select Service</option>
+      <option>Plumber</option>
+      <option>Electrician</option>
+      <option>AC Repair</option>
+    </select><br><br>
+<script>
+document.getElementById("bookingForm").addEventListener("submit", function(e) {
+e.preventDefault();
+
+let name = document.getElementById("name").value;
+let phone = document.getElementById("phone").value;
+let service = document.getElementById("service").value;
+
+let message = "New Service Booking:%0AName: " + name + "%0APhone: " + phone + "%0AService: " + service;
+
+window.open("https://wa.me/917651004391?text=" + message);
+});
+</script>
+    <button type="submit">Submit Booking</button>
+  </form>
+</section>
+
+<footer style="text-align:center; padding:20px; background:#111; color:white;">
+<p>© 2026 QuickFix Services | Owner: SR GROUPS</p>
+</footer>
+
+</body>
+</html>
