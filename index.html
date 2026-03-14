@@ -712,8 +712,7 @@ window.open("https://wa.me/917651004391?text=" + message);
         
         <h1 style="margin-top: 100px; text-align: center;">Welcome to the Dashboard</h1>
         </div>
-
-    <script type="module">
+<script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
@@ -762,7 +761,8 @@ const auth = getAuth(app);
             
             const appVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', { 'size': 'invisible' });
             try {
-                const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, appVerifier);
+                const confirmationResult = await signInWithPhoneNumber
+
                 const code = prompt("Enter the 6-digit OTP sent to your phone:");
                 await confirmationResult.confirm(code);
             } catch (error) { alert("OTP Error: " + error.message); }
