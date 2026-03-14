@@ -738,15 +738,7 @@ const analytics = getAnalytics(app); = {
             projectId: "your-project-id",
             storageBucket: "your-project.appspot.com",
             messagingSenderId: "YOUR_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        // CHECK IF USER IS LOGGED IN
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
+            
                 document.getElementById('welcome-screen').style.display = 'none';
                 document.getElementById('main-website').style.display = 'block';
             } else {
