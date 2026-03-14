@@ -647,5 +647,125 @@ window.open("https://wa.me/917651004391?text=" + message);
         });
     });
 </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickFix - Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* 1. WELCOME/LOCK SCREEN CSS */
+        #welcome-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            z-index: 9999; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; color: white; font-family: sans-serif;
+        }
+        .auth-card {
+            background: white; padding: 30px; border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); width: 90%; max-width: 350px; color: #333;
+        }
+        .btn-google {
+            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;
+            background: white; cursor: pointer; display: flex; align-items: center;
+            justify-content: center; gap: 10px; font-weight: bold; margin-bottom: 15px;
+        }
+        #phone-input {
+            width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px;
+        }
+        .submit-btn {
+            width: 100%; padding: 12px; background: #ff6b35; color: white;
+            border: none; border-radius: 8px; cursor: pointer; font-weight: bold;
+        }
+        
+        /* 2. MAIN WEBSITE CONTENT (Initially Hidden) */
+        #main-website { display: none; }
+    </style>
+</head>
+<body>
+
+    <div id="welcome-screen">
+        <div class="auth-card">
+            <img src="logo.png" alt="QuickFix" style="height: 60px; margin-bottom: 10px;">
+            <h2>QuickFix</h2>
+            <p>Login to access services in Mumbai & Himachal</p>
+            
+            <button onclick="googleLogin()" class="btn-google">
+                <img src="https://img.icons8.com/color/20/000000/google-logo.png"> Sign in with Google
+            </button>
+
+            <div style="margin: 15px 0; color: #888;">OR</div>
+
+            <input type="text" id="phone-input" placeholder="+91 Mobile Number">
+            <div id="recaptcha-container"></div>
+            <button onclick="sendOTP()" id="otp-btn" class="submit-btn">Send OTP</button>
+        </div>
+    </div>
+
+    <div id="main-website">
+        <nav class="navbar">
+            <img src="logo.png" style="height: 45px;">
+            <button onclick="logout()" style="float: right; margin-top: 10px;">Logout</button>
+        </nav>
+        
+        <h1 style="margin-top: 100px; text-align: center;">Welcome to the Dashboard</h1>
+        </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, RecaptchaVerifier, signInWithPhoneNumber, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // IMPORTANT: PASTE YOUR FIREBASE CONFIG HERE
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "your-project.firebaseapp.com",
+            projectId: "your-project-id",
+            storageBucket: "your-project.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // CHECK IF USER IS LOGGED IN
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById('welcome-screen').style.display = 'none';
+                document.getElementById('main-website').style.display = 'block';
+            } else {
+                document.getElementById('welcome-screen').style.display = 'flex';
+                document.getElementById('main-website').style.display = 'none';
+            }
+        });
+
+        // GOOGLE LOGIN
+        window.googleLogin = async () => {
+            const provider = new GoogleAuthProvider();
+            try {
+                await signInWithPopup(auth, provider);
+            } catch (error) { alert("Error: " + error.message); }
+        };
+
+        // LOGOUT
+        window.logout = () => signOut(auth);
+
+        // PHONE LOGIN (OTP Logic)
+        window.sendOTP = async () => {
+            const phoneNumber = document.getElementById('phone-input').value;
+            if(!phoneNumber.startsWith("+91")) { alert("Please use +91 format"); return; }
+            
+            const appVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', { 'size': 'invisible' });
+            try {
+                const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, appVerifier);
+                const code = prompt("Enter the 6-digit OTP sent to your phone:");
+                await confirmationResult.confirm(code);
+            } catch (error) { alert("OTP Error: " + error.message); }
+        };
+    </script>
+</body>
+</html>
 
 </html>
