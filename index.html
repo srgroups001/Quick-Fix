@@ -732,17 +732,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app); = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "your-project.firebaseapp.com",
-            projectId: "your-project-id",
-            storageBucket: "your-project.appspot.com",
-            messagingSenderId: "YOUR_SENDER_ID",
-            
-                document.getElementById('welcome-screen').style.display = 'none';
-                document.getElementById('main-website').style.display = 'block';
-            } else {
+
                 document.getElementById('welcome-screen').style.display = 'flex';
                 document.getElementById('main-website').style.display = 'none';
             }
